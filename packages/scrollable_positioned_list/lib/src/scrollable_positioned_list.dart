@@ -327,7 +327,7 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
   @override
   void initState() {
     super.initState();
-    ItemPosition? initialPosition = PageStorage.of(context).readState(context);
+    ItemPosition? initialPosition = PageStorage.of(context)?.readState(context);
     primary.target = initialPosition?.index ?? widget.initialScrollIndex;
     primary.alignment =
         initialPosition?.itemLeadingEdge ?? widget.initialAlignment;
@@ -511,7 +511,7 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
     if (_isTransitioning) {
       final scrollCompleter = Completer<void>();
       _stopScroll(canceled: true);
-      SchedulerBinding.instance.addPostFrameCallback((_) async {
+      SchedulerBinding.instance?.addPostFrameCallback((_) async {
         await _startScroll(
           index: index,
           alignment: alignment,
@@ -560,7 +560,7 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
       final startCompleter = Completer<void>();
       final endCompleter = Completer<void>();
       startAnimationCallback = () {
-        SchedulerBinding.instance.addPostFrameCallback((_) {
+        SchedulerBinding.instance?.addPostFrameCallback((_) {
           startAnimationCallback = () {};
           _animationController?.dispose();
           _animationController =
@@ -643,7 +643,7 @@ class _ScrollablePositionedListState extends State<ScrollablePositionedList>
         .where((ItemPosition position) =>
             position.itemLeadingEdge < 1 && position.itemTrailingEdge > 0);
     if (itemPositions.isNotEmpty) {
-      PageStorage.of(context).writeState(
+      PageStorage.of(context)?.writeState(
           context,
           itemPositions.reduce((value, element) =>
               value.itemLeadingEdge < element.itemLeadingEdge
